@@ -11,7 +11,7 @@
 	<!-- toastr -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<!-- DATATABLES-->
-	
+
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css" />
@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-12 mt-5">
 				<h1 class="text-center">
-					Usuarios
+					Registro de Datos 2022
 				</h1>
 				<hr style="background-color: black; color: black; height: 1px;">
 				</hr>
@@ -84,19 +84,24 @@
 		<div class="row">
 
 			<div class="col-md-12 mt-4">
-				<table class="table" id="records">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Nombre</th>
-							<th>Apellido Paterno</th>
-							<th>Apellido Materno</th>
-							<th>Edad</th>
-							<th>Correo Electrónico</th>
-							<th>Acción</th>
-						</tr>
-					</thead>
-				</table>
+				<div class="table-responsive">
+
+					<table class="table" id="records">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Apellido Paterno</th>
+								<th>Apellido Materno</th>
+								<th>Edad</th>
+								<th>Correo Electrónico</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+
+					</table>
+				</div>
+
 
 			</div>
 		</div>
@@ -110,6 +115,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!--toastr-->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<!-- FONT AWSOME-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!--datatable-->
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
@@ -123,7 +130,10 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.js"></script>
-	  
+
+	<!-- sweet alert -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	<!-- Option 2: Separate Popper and Bootstrap JS -->
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -157,6 +167,8 @@
 					},
 					success: function(data) {
 						if (data.responce == "success") {
+							$$('#records').DataTable().destroy();
+							fetch();
 
 							toastr["success"](data.message);
 						} else {
@@ -186,31 +198,28 @@
 					var i = "1";
 					$('#records').DataTable({
 						"data": data.posts,
+						dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+							"<'row'<'col-sm-12'tr>>" +
+							"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+						buttons: [
+							'copy', 'excel', 'pdf'
+						],
 						"columns": [{
 								"render": function() {
 									return a = i++;
-								}
-							},
-							{
-								"data": "name"
-							},
-							{
-								"data": "ap"
-							},
-							{
-								"data": "am"
-							},
-							{
-								"data": "edad"
-							},
-							{
-								"data": "email"
-							},
+								} },
+							
+							{"data": "name"},
+							{"data": "ap"},
+							{"data": "am"},
+						    {"data": "edad"},
+							{"data": "email"},
 							{
 								"render": function(data, type, row, meta) {
 									var a = `
-	                                          <a href="#" value=""${row.id} id="editar" class="btn btn-sm btn-outline-success">Editar</a> 
-	                                          <a href="#" value=""${row.id} id="eliminar" class="btn btn-sm btn-outline-danger">Eliminar</a> 
+	                                          <a href="#" value="${row.id}" id="edit" class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></a> 
+	                                          <a href="#" value="${row.id}" id="del" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a> 
 	 
 	 
 	                                         `;
@@ -228,6 +237,56 @@
 		}
 
 		fetch();
+
+
+		// funcion eliminar registro//
+
+		$(document).on("click", "#del", function(e) {
+			e.preventDefault();
+
+			var del_id = $(this).attr("value");	
+		
+			$.ajax({
+				url: "<?php echo base_url(); ?>delete",
+				type: "post", 
+				dataType: "json",
+				data: {
+					del_id: del_id
+
+				},
+				success: function(data){
+
+console.log(data)
+
+				}
+			});
+
+		});
+
+
+		// funcion editar registro//
+
+		$(document).on("click", "#edit", function(e) {
+			e.preventDefault();
+
+			var edit_id = $(this).attr("value");	
+			$.ajax({
+				url: "<?php echo base_url(); ?>edit",
+				type: "post", 
+				dataType: "json",
+				data: {
+					edit_id: edit_id
+
+				},
+				success: function(data){
+
+console.log(data)
+
+				}
+			});
+
+		});
+
 	</script>
 
 

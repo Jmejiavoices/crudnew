@@ -19,6 +19,16 @@ class Crud_model extends CI_Model
         return  $this->db->insert('crud', $data);
     }
 
+
+public function delete_entry($id){
+
+    return $this->db->delete('crud', array('id' => $id));
+
+
+}
+
+
+
     public function update_entry()
     {
         $this->title    = $_POST['title'];
