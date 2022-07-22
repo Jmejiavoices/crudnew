@@ -239,52 +239,60 @@
 				type: "post",
 				dataType: "json",
 				success: function(data) {
-					var i = "1";
-					$('#records').DataTable({
-						"data": data.posts,
-						dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
-							"<'row'<'col-sm-12'tr>>" +
-							"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
-						buttons: [
-							'copy', 'excel', 'pdf'
-						],
-						"columns": [{
-								"render": function() {
-									return a = i++;
-								}
-							},
+					if (data.responce == "success") {
+						var i = "1";
+						$('#records').DataTable({
+							"data": data.posts,
+							dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+								"<'row'<'col-sm-12'tr>>" +
+								"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
-							{
-								"data": "name"
-							},
-							{
-								"data": "ap"
-							},
-							{
-								"data": "am"
-							},
-							{
-								"data": "edad"
-							},
-							{
-								"data": "email"
-							},
-							{
-								"render": function(data, type, row, meta) {
-									var a = `
+							buttons: [
+								'copy', 'excel', 'pdf'
+							],
+							"columns": [{
+									"render": function() {
+										return a = i++;
+									}
+								},
+
+								{
+									"data": "name"
+								},
+								{
+									"data": "ap"
+								},
+								{
+									"data": "am"
+								},
+								{
+									"data": "edad"
+								},
+								{
+									"data": "email"
+								},
+								{
+									"render": function(data, type, row, meta) {
+										var a = `
 	                                          <a href="#" value="${row.id}" id="edit" class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></a> 
 	                                          <a href="#" value="${row.id}" id="del" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a> 
 	 
 	 
 	                                         `;
 
-									return a;
+										return a;
 
+									}
 								}
-							}
-						]
-					});
+							]
+						});
+					} else {
+						toastr["error"](data.message);
+
+					}
+
+
 
 				}
 
@@ -387,13 +395,19 @@
 
 				},
 				success: function(data) {
-					$('#edit_modal').modal('show');
-					$("#edit_record_id").val(data.post.id)
-					$("#edit_name").val(data.post.name)
-					$("#edit_ap").val(data.post.ap)
-					$("#edit_am").val(data.post.am)
-					$("#edit_edad").val(data.post.edad)
-					$("#edit_email").val(data.post.email)
+					if (data.responce == "success") {
+						$('#edit_modal').modal('show');
+						$("#edit_record_id").val(data.post.id)
+						$("#edit_name").val(data.post.name)
+						$("#edit_ap").val(data.post.ap)
+						$("#edit_am").val(data.post.am)
+						$("#edit_edad").val(data.post.edad)
+						$("#edit_email").val(data.post.email)
+					} else {
+						toastr["error"](data.message);
+
+					}
+
 					console.log(data);
 
 				}
@@ -434,7 +448,15 @@
 
 					},
 					success: function(data) {
-						
+						if (data.responce == "success") {
+							$('#records').DataTable().destroy();
+							fetch();
+
+							toastr["success"](data.message);
+						} else {
+							toastr["error"](data.message);
+
+						}
 					}
 				});
 
