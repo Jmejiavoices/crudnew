@@ -106,7 +106,38 @@ class Welcome extends CI_Controller
 		}
 	}
 
+	public function update()
+	{
 
-	
+		if ($this->input->is_ajax_request()) {
+			
 
+			$this->form_validation->set_rules('edit_name', 'name', 'required');
+			$this->form_validation->set_rules('edit_ap', 'ap', 'required');
+			$this->form_validation->set_rules('edit_am', 'am', 'required');
+			$this->form_validation->set_rules('edit_edad', 'edad', 'required');
+			$this->form_validation->set_rules('edit_email', 'email', 'required|valid_email');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('responce' => 'error', 'message' => validation_errors());
+			} else {
+
+				$data['id'] = $this->input->post('edit_record_id');
+			$data['name'] = $this->input->post('edit_name');
+			$data['ap'] = $this->input->post('edit_ap');
+			$data['am'] = $this->input->post('edit_am');
+			$data['edad'] = $this->input->post('edit_edad');
+			$data['email'] = $this->input->post('edit_email');
+				if ($this->crud_model->update_entry($data)) {
+
+					$data = array('responce' => 'success', 'message' => 'Usuaio Actualizado con Éxito');
+				} else {
+					$data = array('responce' => 'error', 'message' => 'No se Actualizó el Usuario');
+				}
+			}
+			echo json_encode($data);
+
+		} else {
+			echo "No direct script access allowed";
+		}
+	}
 }

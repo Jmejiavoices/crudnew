@@ -394,7 +394,7 @@
 					$("#edit_am").val(data.post.am)
 					$("#edit_edad").val(data.post.edad)
 					$("#edit_email").val(data.post.email)
-console.log(data); 
+					console.log(data);
 
 				}
 			});
@@ -413,7 +413,7 @@ console.log(data);
 			var edit_email = $("#edit_email").val();
 
 
-			if (edit_record_id == "" || edit_name == "" || edit_ap == ""|| edit_am == ""|| edit_edad == "" || edit_email == ""  ) {
+			if (edit_record_id == "" || edit_name == "" || edit_ap == "" || edit_am == "" || edit_edad == "" || edit_email == "") {
 
 				alert("Se requieren llenar todos los datos");
 
@@ -434,7 +434,7 @@ console.log(data);
 
 					},
 					success: function(data) {
-						console.log(data);
+						
 					}
 				});
 
@@ -447,4 +447,4 @@ console.log(data);
 
 </body>
 
-</html> 
+</html>
