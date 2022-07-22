@@ -7,7 +7,7 @@ class Crud_model extends CI_Model
     public function get_entries()
     {
         $query = $this->db->get('crud');
-        if(count($query->result())> 0){
+        if(count( $query->result() ) > 0){
             return $query->result();
 
         }

@@ -60,7 +60,7 @@ class Welcome extends CI_Controller
 			if ($posts = $this->crud_model->get_entries()) {
 				$data = array('responce' => 'success', 'posts' => $posts);
 			} else {
-				$data = array('responce' => 'error', 'message' => 'Fallo el FETCH data');
+				$data = array('responce' => 'error', 'message' => 'Failed to fetch data');
 			}
 			echo  json_encode($data);
 		} else {
