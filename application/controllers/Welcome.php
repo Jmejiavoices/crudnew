@@ -74,13 +74,12 @@ class Welcome extends CI_Controller
 
 		if ($this->input->is_ajax_request()) {
 			$del_id = $this->input->post('del_id');
-if($this->crud_model->delete_entry($del_id)){
-$data = array ('responce' => 'success');
-} else{
-	$data = array ('responce' => 'error');
+			if ($this->crud_model->delete_entry($del_id)) {
+				$data = array('responce' => 'success');
+			} else {
+				$data = array('responce' => 'error');
+			}
 
-}
-			
 			echo json_encode($data);
 		} else {
 
@@ -94,11 +93,20 @@ $data = array ('responce' => 'success');
 		if ($this->input->is_ajax_request()) {
 			$edit_id = $this->input->post('edit_id');
 
-			$data = array('edit_id' => $edit_id);
+			if ($post =	$this->crud_model->edit_entry($edit_id)) {
+				$data = array('responce' => 'success', 'post' => $post);
+			} else {
+				$data = array('responce' => 'error', 'message' => 'failed to fetch record');
+			}
+
 			echo json_encode($data);
 		} else {
 
 			echo "No direct script access allowed";
 		}
 	}
+
+
+	
+
 }

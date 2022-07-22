@@ -108,6 +108,50 @@
 
 
 	</div>
+
+
+	<!-- FORMULAIOS PARA LLENAR CAMPOS DE UPDATE -->
+	<div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Actualiza tus Datos</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- formularios para edotar dstos -->
+					<form action="" method="post" id="edit_form">
+						<input type="hidden" id="edit_record_id" name="edit_record_id" value="">
+						<div class="form-group">
+							<label for="">Nombre</label>
+							<input type="text" id="edit_name" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="">Apellido Paterno</label>
+							<input type="text" id="edit_ap" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="">Apellido Materno</label>
+							<input type="text" id="edit_am" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="">Edad</label>
+							<input type="text" id="edit_edad" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="">Correo</label>
+							<input type="email" id="edit_email" class="form-control">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary" id="update">Guardar Cambios</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
@@ -343,11 +387,59 @@
 
 				},
 				success: function(data) {
-
-					console.log(data)
+					$('#edit_modal').modal('show');
+					$("#edit_record_id").val(data.post.id)
+					$("#edit_name").val(data.post.name)
+					$("#edit_ap").val(data.post.ap)
+					$("#edit_am").val(data.post.am)
+					$("#edit_edad").val(data.post.edad)
+					$("#edit_email").val(data.post.email)
+console.log(data); 
 
 				}
 			});
+
+		});
+
+		//funcion para actualizar datos en DB//
+
+		$(document).on("click", "#update", function(e) {
+			e.preventDefault();
+			var edit_record_id = $("#edit_record_id").val();
+			var edit_name = $("#edit_name").val();
+			var edit_ap = $("#edit_ap").val();
+			var edit_am = $("#edit_am").val();
+			var edit_edad = $("#edit_edad").val();
+			var edit_email = $("#edit_email").val();
+
+
+			if (edit_record_id == "" || edit_name == "" || edit_ap == ""|| edit_am == ""|| edit_edad == "" || edit_email == ""  ) {
+
+				alert("Se requieren llenar todos los datos");
+
+			} else {
+				$.ajax({
+					url: "<?php echo base_url(); ?>update",
+					type: "post",
+					dataType: "json",
+					data: {
+
+						edit_record_id: edit_record_id,
+						edit_name: edit_name,
+						edit_ap: edit_ap,
+						edit_am: edit_am,
+						edit_edad: edit_edad,
+						edit_email: edit_email
+
+
+					},
+					success: function(data) {
+						console.log(data);
+					}
+				});
+
+			}
+
 
 		});
 	</script>
@@ -355,4 +447,4 @@
 
 </body>
 
-</html>
+</html> 

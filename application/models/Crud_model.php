@@ -27,6 +27,20 @@ public function delete_entry($id){
 
 }
 
+public function edit_entry($id){
+
+   $this->db->select("*");
+   $this->db->from("crud");    
+   $this->db->where("id", $id);    
+$query = $this->db->get();
+if (count($query->result()) > 0 ){
+
+    return $query->row();
+}
+
+}
+
+
 
 
     public function update_entry()
