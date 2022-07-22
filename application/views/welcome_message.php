@@ -167,7 +167,7 @@
 					},
 					success: function(data) {
 						if (data.responce == "success") {
-							$$('#records').DataTable().destroy();
+							$('#records').DataTable().destroy();
 							fetch();
 
 							toastr["success"](data.message);
@@ -208,13 +208,24 @@
 						"columns": [{
 								"render": function() {
 									return a = i++;
-								} },
-							
-							{"data": "name"},
-							{"data": "ap"},
-							{"data": "am"},
-						    {"data": "edad"},
-							{"data": "email"},
+								}
+							},
+
+							{
+								"data": "name"
+							},
+							{
+								"data": "ap"
+							},
+							{
+								"data": "am"
+							},
+							{
+								"data": "edad"
+							},
+							{
+								"data": "email"
+							},
 							{
 								"render": function(data, type, row, meta) {
 									var a = `
@@ -244,22 +255,75 @@
 		$(document).on("click", "#del", function(e) {
 			e.preventDefault();
 
-			var del_id = $(this).attr("value");	
-		
-			$.ajax({
-				url: "<?php echo base_url(); ?>delete",
-				type: "post", 
-				dataType: "json",
-				data: {
-					del_id: del_id
+			var del_id = $(this).attr("value");
 
+			const swalWithBootstrapButtons = Swal.mixin({
+				customClass: {
+					confirmButton: 'btn btn-success ',
+					cancelButton: 'btn btn-danger mr-2'
 				},
-				success: function(data){
+				buttonsStyling: false
+			})
 
-console.log(data)
+			swalWithBootstrapButtons.fire({
+				title: '¿Estás seguro de eliminar el Registro?',
+				text: "¡No se podrá recuperar después!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Si, ¡Eliminar!',
+				cancelButtonText: 'No, ¡Cancelar!',
+				reverseButtons: true
+			}).then((result) => {
+				if (result.value) {
+
+
+					$.ajax({
+						url: "<?php echo base_url(); ?>delete",
+						type: "post",
+						dataType: "json",
+						data: {
+							del_id: del_id
+
+						},
+						success: function(data) {
+							if (data.responce == "success") {
+								$('#records').DataTable().destroy();
+								fetch();
+								swalWithBootstrapButtons.fire(
+									'¡Eliminado',
+									'con éxito!',
+									'success'
+								);
+							} else {
+								swalWithBootstrapButtons.fire(
+									'Cancelled',
+									'Your imaginary file is safe :)',
+									'error'
+								)
+
+							}
+
+
+						}
+					});
+
+
+				} else if (
+					/* Read more about handling dismissals below */
+					result.dismiss === Swal.DismissReason.cancel
+				) {
 
 				}
-			});
+			})
+
+
+
+
+
+
+
+
+
 
 		});
 
@@ -269,24 +333,23 @@ console.log(data)
 		$(document).on("click", "#edit", function(e) {
 			e.preventDefault();
 
-			var edit_id = $(this).attr("value");	
+			var edit_id = $(this).attr("value");
 			$.ajax({
 				url: "<?php echo base_url(); ?>edit",
-				type: "post", 
+				type: "post",
 				dataType: "json",
 				data: {
 					edit_id: edit_id
 
 				},
-				success: function(data){
+				success: function(data) {
 
-console.log(data)
+					console.log(data)
 
 				}
 			});
 
 		});
-
 	</script>
 
 
