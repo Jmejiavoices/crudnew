@@ -38,23 +38,33 @@ class Welcome extends CI_Controller
 			$this->form_validation->set_rules('email', 'email', 'required|valid_email');
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('responce' => 'error', 'message' => validation_errors());
-			}
-			 else
-			    {
+			} else {
 
 				$ajax_data =  $this->input->post();
 				if ($this->crud_model->insert_entry($ajax_data)) {
-				
+
 					$data = array('responce' => 'success', 'message' => 'Usuaio Agregado con Éxito');
-				}
-				else {
+				} else {
 					$data = array('responce' => 'error', 'message' => 'No se Agrego el Usuario');
 				}
-
-
-				}
+			}
 			echo json_encode($data);
 		} else {
+			echo "No direct script access allowed";
+		}
+	}
+
+	public function fetch()
+	{
+		if ($this->input->is_ajax_request()) {
+			if ($posts = $this->crud_model->get_entries()) {
+				$data = array('responce' => 'success', 'posts' => $posts);
+			} else {
+				$data = array('responce' => 'error', 'message' => 'Fallo el FETCH data');
+			}
+			echo  json_encode($data);
+		} else {
+
 			echo "No direct script access allowed";
 		}
 	}

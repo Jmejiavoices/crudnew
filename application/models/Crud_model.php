@@ -4,10 +4,14 @@ class Crud_model extends CI_Model
 {
 
 
-    public function get_last_ten_entries()
+    public function get_entries()
     {
-        $query = $this->db->get('entries', 10);
-        return $query->result();
+        $query = $this->db->get('crud');
+        if(count($query->result())> 0){
+            return $query->result();
+
+        }
+        
     }
 
     public function insert_entry($data)
