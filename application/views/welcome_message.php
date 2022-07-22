@@ -11,7 +11,10 @@
 	<!-- toastr -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<!-- DATATABLES-->
-	<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css" />
 	<title>CRUD</title>
 </head>
 
@@ -108,7 +111,19 @@
 	<!--toastr-->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<!--datatable-->
-	<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.js"></script>
+	  
 	<!-- Option 2: Separate Popper and Bootstrap JS -->
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -168,11 +183,13 @@
 				type: "post",
 				dataType: "json",
 				success: function(data) {
-					console.log(data);
+					var i = "1";
 					$('#records').DataTable({
 						"data": data.posts,
 						"columns": [{
-								"data": "id"
+								"render": function() {
+									return a = i++;
+								}
 							},
 							{
 								"data": "name"
@@ -190,7 +207,17 @@
 								"data": "email"
 							},
 							{
-								"data": "accion"
+								"render": function(data, type, row, meta) {
+									var a = `
+	                                          <a href="#" value=""${row.id} id="editar" class="btn btn-sm btn-outline-success">Editar</a> 
+	                                          <a href="#" value=""${row.id} id="eliminar" class="btn btn-sm btn-outline-danger">Eliminar</a> 
+	 
+	 
+	                                         `;
+
+									return a;
+
+								}
 							}
 						]
 					});
