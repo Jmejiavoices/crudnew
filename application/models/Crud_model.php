@@ -2,6 +2,32 @@
 
 class Crud_model extends CI_Model
 {
+function __construct(){
+    parent::__construct();
+
+}
+  function get_addressbook(){
+$query = $this->db->get('addressbook');
+if ($query->num_rows()>0){
+return $query->result_array();
+
+}else{
+    return false;
+}
+ }
+
+
+ function insert_csv($data){
+$this->db->insert('addressbook', $data);
+
+
+
+
+ }
+
+
+
+
 
 
     public function get_entries()

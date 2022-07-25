@@ -110,7 +110,7 @@ class Welcome extends CI_Controller
 	{
 
 		if ($this->input->is_ajax_request()) {
-			
+
 
 			$this->form_validation->set_rules('edit_name', 'name', 'required');
 			$this->form_validation->set_rules('edit_ap', 'ap', 'required');
@@ -122,11 +122,11 @@ class Welcome extends CI_Controller
 			} else {
 
 				$data['id'] = $this->input->post('edit_record_id');
-			$data['name'] = $this->input->post('edit_name');
-			$data['ap'] = $this->input->post('edit_ap');
-			$data['am'] = $this->input->post('edit_am');
-			$data['edad'] = $this->input->post('edit_edad');
-			$data['email'] = $this->input->post('edit_email');
+				$data['name'] = $this->input->post('edit_name');
+				$data['ap'] = $this->input->post('edit_ap');
+				$data['am'] = $this->input->post('edit_am');
+				$data['edad'] = $this->input->post('edit_edad');
+				$data['email'] = $this->input->post('edit_email');
 				if ($this->crud_model->update_entry($data)) {
 
 					$data = array('responce' => 'success', 'message' => 'Usuaio Actualizado con Éxito');
@@ -135,9 +135,34 @@ class Welcome extends CI_Controller
 				}
 			}
 			echo json_encode($data);
-
 		} else {
 			echo "No direct script access allowed";
 		}
+	}
+
+
+
+
+
+	public function  spreadssheet_import()
+	{
+
+		$upload_file = $_FILES['upload_file']['name'];
+		$extension = pathinfo($upload_file, PATHINFO_EXTENSION);
+
+		if ($extension == 'csv') {
+		 $reader= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+		} else if ($extension == 'xls') {
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+		} else {
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+		}
+
+
+		$spreadsheet=$reader->load($_FILES['upload_file']['tmp_name']);
+		$sheetdata=$spreadsheet->getActiveSheet->toArray();
+		echo '<pre>';
+		print_r($sheetdata);
+
 	}
 }

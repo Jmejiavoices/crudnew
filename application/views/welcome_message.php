@@ -36,6 +36,8 @@
 				<button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
 					Agregar
 				</button>
+				
+				
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -48,7 +50,7 @@
 							<div class="modal-body">
 
 
-								<form action="" method="post" id="form">
+								<form  method="post" id="form" action="<?php echo base_url('home/spreadsheet_import');?>" enctype="multipart/form-data"> 
 									<div class="form-group">
 										<label for="">Nombre</label>
 										<input type="text" id="name" class="form-control">
@@ -459,6 +461,11 @@
 						}
 					}
 				});
+
+
+
+				//funcion para actualizar datos en DB//
+
 
 			}
 
