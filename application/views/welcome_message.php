@@ -15,10 +15,37 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css" />
+	<link rel="stylesheet" href="http://parsleyjs.org/src/parsley.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+	<link rel="apple-touch-icon" href="pages/ico/60.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="assets/plugins/nvd3/nv.d3.min.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="assets/plugins/mapplic/css/mapplic.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/rickshaw/rickshaw.min.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" type="text/css" media="screen">
+	<link href="assets/plugins/jquery-metrojs/MetroJs.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+	<link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+
 	<title>CRUD</title>
 </head>
 
 <body>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 mt-5">
@@ -36,8 +63,8 @@
 				<button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
 					Agregar
 				</button>
-				
-				
+
+
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,7 +77,7 @@
 							<div class="modal-body">
 
 
-								<form  method="post" id="form" action="<?php echo base_url('home/spreadsheet_import');?>" enctype="multipart/form-data"> 
+								<form method="post" id="form" action="<?php echo base_url('home/spreadsheet_import'); ?>" enctype="multipart/form-data">
 									<div class="form-group">
 										<label for="">Nombre</label>
 										<input type="text" id="name" class="form-control">
@@ -74,6 +101,7 @@
 								</form>
 							</div>
 							<div class="modal-footer">
+
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
 								<button type="button" class="btn btn-primary" id="add">Guardar</button>
 							</div>
@@ -121,8 +149,8 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<!-- formularios para edotar dstos -->
-					<form action="" method="post" id="edit_form">
+					<!-- formularios para editar dstos -->
+					<form action="" method="post" id="edit_form" data-parsley-validate="">
 						<input type="hidden" id="edit_record_id" name="edit_record_id" value="">
 						<div class="form-group">
 							<label for="">Nombre</label>
@@ -142,7 +170,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">Correo</label>
-							<input type="email" id="edit_email" class="form-control">
+							<input type="email" id="edit_email" class="form-control" data-parsley-trigger="change" required="">
 						</div>
 					</form>
 				</div>
@@ -184,6 +212,55 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+	<!-- parslaey -->
+	<script src="jquery.js"></script>
+	<script src="parsley.min.js"></script>
+
+	<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/popper/umd/popper.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery/jquery-easy.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
+	<script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/select2/js/select2.full.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/classie/classie.js"></script>
+	<script src="assets/plugins/switchery/js/switchery.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/lib/d3.v3.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/nv.d3.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/utils.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/tooltip.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/interactiveLayer.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/models/axis.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/models/line.js" type="text/javascript"></script>
+	<script src="assets/plugins/nvd3/src/models/lineWithFocusChart.js" type="text/javascript"></script>
+	<script src="assets/plugins/mapplic/js/hammer.min.js"></script>
+	<script src="assets/plugins/mapplic/js/jquery.mousewheel.js"></script>
+	<script src="assets/plugins/mapplic/js/mapplic.js"></script>
+	<script src="assets/plugins/rickshaw/rickshaw.min.js"></script>
+	<script src="assets/plugins/jquery-metrojs/MetroJs.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/skycons/skycons.js" type="text/javascript"></script>
+	<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+	<!-- END VENDOR JS -->
+	<!-- BEGIN CORE TEMPLATE JS -->
+	<!-- BEGIN CORE TEMPLATE JS -->
+	<script src="pages/js/pages.js"></script>
+	<!-- END CORE TEMPLATE JS -->
+	<!-- BEGIN PAGE LEVEL JS -->
+	<script src="assets/js/scripts.js" type="text/javascript"></script>
+	<!-- END PAGE LEVEL JS -->
+	<!-- END CORE TEMPLATE JS -->
+	<!-- BEGIN PAGE LEVEL JS -->
+	<script src="assets/js/dashboard.js" type="text/javascript"></script>
+	<script src="assets/js/scripts.js" type="text/javascript"></script>
+
 
 	<!-- AÑADIR DATOS -->
 	<script>
@@ -274,11 +351,22 @@
 								{
 									"data": "email"
 								},
+
+
+
+
+
 								{
+
 									"render": function(data, type, row, meta) {
 										var a = `
-	                                          <a href="#" value="${row.id}" id="edit" class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></a> 
-	                                          <a href="#" value="${row.id}" id="del" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a> 
+										
+
+
+										<a href="#" value="${row.id}" id="edit" class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></a> 
+	                                    <a href="#" value="${row.id}" id="del" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a> 
+									
+										
 	 
 	 
 	                                         `;
@@ -470,6 +558,19 @@
 			}
 
 
+		});
+
+
+
+		$(function() {
+			$('#edit_form').parsley().on('field:validated', function() {
+					var ok = $('.parsley-error').length === 0;
+					$('.bs-callout-info').toggleClass('hidden', !ok);
+					$('.bs-callout-warning').toggleClass('hidden', ok);
+				})
+				.on('form:submit', function() {
+					return false; // Don't submit form for this demo
+				});
 		});
 	</script>
 
